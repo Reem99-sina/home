@@ -5,7 +5,7 @@ const { myMulter, fileValdation, imagetype } = require('../services/multer');
 const { signup, signin, updateUser, deleteuser, alluser, allinstructoruser, allstudentuser } = require('../services/user.service');
 const { validatesignup, validatesignin, validateupdate } = require('../validationDate/user.validation.schema');
 const router = require('express').Router();
-router.get("/alluser",auth(endpoint.updateUser),alluser)
+router.get("/alluser",alluser)
 router.get("/allinstructoruser",auth(endpoint.updateUser),allinstructoruser)
 router.get("/allstudentuser",auth(endpoint.addquize),allstudentuser)
 router.post("/signup",myMulter("/picture",imagetype.Type).single("image"),validateschema(validatesignup),signup)
