@@ -18,6 +18,6 @@ app.use('/api/v1/quize', indexRouter.quizeRouter);
 app.use('/api/v1/announcement', indexRouter.announcementRouter);
 
 connectdb();
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT||3500, () => {
     console.log("good job");
 });
