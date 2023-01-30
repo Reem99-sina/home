@@ -38,3 +38,7 @@ module.exports.getAnnouncement=async(req,res)=>{
 const announcements=await aannouncementModel.find({})
 res.status(200).json({message:"done get to quize",announcements})
 }
+module.exports.getAnnouncementByid=async(req,res)=>{
+    const announcements=await userModel.findById(req.user.id).populate("announcements").select("announcements -_id")
+    res.status(200).json({message:"done get to announcement",announcements})
+    }

@@ -37,3 +37,7 @@ module.exports.getquizes=async(req,res)=>{
 const quizes=await quizeModel.find({})
 res.status(200).json({message:"done get to quize",quizes})
 }
+module.exports.getQuizeByid=async(req,res)=>{
+    const announcements=await userModel.findById(req.user.id).populate("quizzes").select("quizzes -_id")
+    res.status(200).json({message:"done get to quizes",announcements})
+    }
