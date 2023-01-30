@@ -6,11 +6,9 @@ const quizeModel = require("../DB/models/quize.model")
 
 module.exports.signup=async(req,res)=>{
 const {username,password,role}=req.body
-if(req.imagevalidtype){
-    res.status(400).json({message:"add image"})
-}else{
-    const imageURl = `${req.destination}${req.file.originalname}`
-    const newUser=new userModel({username,password,role,image:imageURl})
+console.log(req.file)
+
+    const newUser=new userModel({username,password,role})
     const userAdd=await newUser.save()
     const quizes=await quizeModel.find({match:{dueto:{$gte:new Date()}}})
     console.log(quizes,new Date())
@@ -20,16 +18,18 @@ if(req.imagevalidtype){
         })
     }
     res.status(200).json({message:"done add new user"})
-}}
+}
 
 module.exports.signin=async(req,res)=>{
     const {username,password}=req.body
-    const User=await userModel.findOne({username});
+    const User=await userModel.findOne({username}).populate({path:"announcements quizzes",populate:{
+        path:"createdBy"
+    }});
     if(User){
         const hasPassworduser=await bcrypt.compare(password,User.password)
         if(hasPassworduser){
             const Token=jwt.sign({ id: User._id,role:User.role, isLogged: true }, process.env.jwtcode)
-            res.status(200).json({ message: "done find user take token", Token })
+            res.status(200).json({ message: "done find user take token", Token ,User})
         }else{
             res.status(404).json({ error: "not correct password" })
         }

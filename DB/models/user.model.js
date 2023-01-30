@@ -14,10 +14,6 @@ const userSchema=mongoose.Schema({
         required:true,
         enums:["student","instructor"]
     },
-    image:{
-        type:String,
-        required:true
-    },
     announcements:[{type:mongoose.Schema.Types.ObjectId,ref:'aannouncement'}],
     quizzes:[{type:mongoose.Schema.Types.ObjectId,ref:'quize'}]
 })

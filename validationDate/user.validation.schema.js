@@ -11,8 +11,7 @@ module.exports.validatesignup = {
 module.exports.validatesignin = {
     body: Joi.object().required().keys({
         username: Joi.string().required(),
-        password: Joi.string().required().pattern(new RegExp('[a-z]{4}')),
-        cpassword: Joi.valid(Joi.ref("password")).required()
+        password: Joi.string().required().pattern(new RegExp('[a-z]{4}'))
     })
 }
 module.exports.validateupdate = {
